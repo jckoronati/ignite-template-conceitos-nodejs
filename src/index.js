@@ -15,7 +15,7 @@ function checksExistsUserAccount(request, response, next) {
   const user = users.find((user) => user.username === username);
 
   if (!user)
-    return response.status(400).json({ error: "User not found!" });
+    return response.status(404).json({ error: "User not found!" });
 
   request.user = user;
 
@@ -28,7 +28,7 @@ app.post('/users', (request, response) => {
   const usernameAlreadyInUse = users.some((user) => user.username === username);
 
   if (usernameAlreadyInUse)
-    return response.status(404).json({ error: "Username is already in use" });
+    return response.status(400).json({ error: "Username is already in use" });
 
   const userFormatted = {
     id: uuidv4(),
